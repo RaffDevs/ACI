@@ -1,0 +1,22 @@
+﻿@model List<Curso>
+<h1>Matricula</h1>
+
+
+<div class="card shadow-lg mx-auto w-1/3 px-8 mt-16">
+   <div class="space-y-2 mt-8">
+      <h1 class="text-3xl font-semibold">Nova Matrícula</h1>
+      <p class="text-sm">selecione um curso para se matraícular</p>
+   </div>
+   <form asp-controller="Home" asp-action="Matricula" method="post" class="flex flex-col justify-center mt-8">
+      @Html.AntiForgeryToken()
+      <label class="label">Cursos</label>
+     <div class="my-2"></div> 
+      <select class="select" name="cursoId" asp-items="Model.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Nome })">
+         <option disabled selected>Selecione um curso</option>
+      </select>
+     <div class="my-4"></div> 
+      <div class="flex flex-row justify-center m-4">
+         <button class="btn" type="submit">Matrícular</button>
+      </div>
+   </form>
+</div>

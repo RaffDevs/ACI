@@ -1,0 +1,7 @@
+﻿services:
+  aci.webapp:
+    image: aci.webapp
+    build:
+      context: .
+      dockerfile: ACI.Webapp/Dockerfile
+

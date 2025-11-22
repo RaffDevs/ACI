@@ -1,0 +1,35 @@
+﻿@model RegisterInputModel
+@{
+    Layout = "_AuthLayout";
+}
+
+<div class="card shadow-lg mx-auto w-1/3 px-8 mt-16">
+   <div class="space-y-2 mt-8">
+      <h1 class="text-3xl font-semibold">Registrar</h1>
+      <p class="text-sm">preencha os campos para registrar!</p>
+   </div>
+   <form asp-controller="Auth" asp-action="Register" method="post" class="flex flex-col justify-center mt-8 ">
+      @Html.AntiForgeryToken()
+      <label class="label">Nome</label>
+      <input type="text" asp-for="Nome" class="input w-full" placeholder="Seu nome" />
+      <div class="my-2"></div>
+      <label class="label">Sobrenome</label>
+      <input type="text" asp-for="Sobrenome" class="input w-full" placeholder="Seu sobrenome" />
+      <div class="my-2"></div>
+      <label class="label">Data nascimento</label>
+      <input type="date" asp-for="DataNascimento" class="input w-full" placeholder="Seu sobrenome" />
+      <div class="my-2"></div>
+      <label class="label">Email</label>
+      <input type="text" asp-for="Email" class="input w-full" placeholder="meuemail@exemplo.com" />
+      <div class="my-2"></div>
+      <label class="label">Senha</label>
+      <input type="password" asp-for="Password" class="input w-full" placeholder="***********" />
+      <div class="flex flex-row justify-center m-4">
+         <button class="btn" type="submit">Registrar</button>
+      </div>
+   </form>
+
+   <div class="flex flex-row justify-end my-4">
+      <a class="btn btn-ghost" href="@Url.Action("Login", "Auth")">Login</a>
+   </div>
+</div>

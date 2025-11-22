@@ -1,18 +1,26 @@
-@model TModel
-
+@model LoginInputModel
 @{
-    Layout = null;
+   Layout = "_AuthLayout";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title>title</title>
-</head>
-<body>
-<div>
+<div class="card shadow-lg mx-auto w-1/3 px-8 mt-16">
+   <div class="space-y-2 mt-8">
+      <h1 class="text-3xl font-semibold">Login</h1>
+      <p class="text-sm">preencha os campos para entrar!</p>
+   </div>
+   <form asp-controller="Auth" asp-action="Login" method="post" class="flex flex-col justify-center mt-8 ">
+      @Html.AntiForgeryToken()
+      <label class="label">Email</label>
+      <input type="text" asp-for="Email" class="input w-full" placeholder="meuemail@exemplo.com" />
+      <div class="my-2"></div>
+      <label class="label">Senha</label>
+      <input type="password" asp-for="Password" class="input w-full" placeholder="***********" />
       
+      <div class="flex flex-row justify-center m-4">
+         <button class="btn" type="submit">Entrar</button>
+      </div>
+   </form>
+   <div class="flex flex-row justify-end my-4">
+      <a class="btn btn-ghost" href="@Url.Action("Register", "Auth")">Registrar</a>
+   </div>
 </div>
-</body>
-</html>

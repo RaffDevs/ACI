@@ -1,0 +1,50 @@
+﻿@model RelatoriosViewModel
+
+<h1>Relatorios</h1>
+
+<div class="flex flex-col w-full p-8 gap-y-16">
+    
+
+
+    <div class="shadow-lg rounded-sm">
+        <h1 class="text-2xl font-bold px-8">Total de Alunos</h1>
+        <div class="my-4"></div>
+        <div class="grid grid-cols-1 gap-4">
+            <div class="flex flex-col justify-center items-center shadow-lg rounded-sm p-4">
+                <h1 class="text-2xl font-bold px-8 text-center">Alunos Matriculados</h1>
+                <div class="my-4"></div> 
+                <h1>@Model.TotalAlunos</h1>
+            </div>
+        </div>
+    </div>
+    
+    <div class="shadow-lg rounded-sm">
+        <h1 class="text-2xl font-bold px-8">Alunos por Curso</h1>
+        <div class="my-4"></div>
+        <div class="grid grid-cols-3 gap-4">
+            @foreach(var curso in Model.AlunosPorCurso)
+            {
+                <div class="flex flex-col justify-center items-center shadow-lg rounded-sm p-4">
+                    <h1 class="text-2xl font-bold px-8 text-center">@curso.CursoNome</h1>
+                    <div class="my-4"></div> 
+                    <h1>@curso.AlunoCount</h1>
+                </div>
+            }
+        </div>
+    </div>
+    
+    <div class="shadow-lg rounded-sm">
+        <h1 class="text-2xl font-bold px-8">Cursos com total de alunos</h1>
+        <div class="my-4"></div>
+        <div class="grid grid-cols-3 gap-4">
+            @foreach(var curso in Model.CursosComTotalDeAlunos)
+            {
+                <div class="flex flex-col justify-center items-center shadow-lg rounded-sm p-4">
+                    <h1 class="text-2xl font-bold px-8 text-center">@curso.CursoNome</h1>
+                    <div class="my-4"></div> 
+                    <h1>@curso.TotalDeAlunos</h1>
+                </div>
+            }
+        </div>
+    </div>
+</div>

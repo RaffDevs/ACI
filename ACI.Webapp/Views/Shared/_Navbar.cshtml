@@ -1,2 +1,28 @@
-@model TModel
-
+<header>
+    <div class="navbar shadow-sm">
+        <div class="navbar-start ">
+            <span class="text-xl font-bold">Sistema de Matrícula</span>
+        </div>
+        <div class="navbar-end lg:flex">
+            <ul class="menu menu-horizontal px-1">
+                @if(User.IsInRole("User"))
+                {
+                    <li><a>Minha Matrícula</a></li>
+                }
+                @if(User.IsInRole("Admin"))
+                {
+                    <li><a href="@Url.Action("Admin", "Home")">Admin</a></li>
+                    <li><a href="@Url.Action("Relatorios", "Home")">Relatorios</a></li>
+                }
+                @if(User.Identity.IsAuthenticated)
+                {
+                    <li class="">
+                        <form method="post" action="@Url.Action("Logout", "Auth")">
+                            <button type="submit" class="text-error">Sair</button>
+                        </form>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</header>

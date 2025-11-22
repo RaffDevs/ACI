@@ -1,2 +1,15 @@
-@model TModel
+@if (TempData["ToastMessage"] != null)
+{
+    <div class="toast" x-data="{ showError: false}" @@show-dialog.window="showError = true" x-show="showError" x-transition>
+        <div class="alert alert-@TempData["ToastType"].ToString().ToLower()">
+            <span>@TempData["ToastMessage"]</span>
+        <button class="btn btn-xs btn-@TempData["ToastType"].ToString().ToLower()" x-on:click="showError = false">Fechar</button>
+        </div>
+    </div>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            window.dispatchEvent(new CustomEvent("show-dialog"));
+        });
+    </script>
+}

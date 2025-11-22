@@ -1,0 +1,15 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <button class="btn" hx-get="@Url.ActionLink("Alunos", "Home")" hx-target="#alunos-container" hx-swap="innerHTML">
+      Buscar      
+    </button>
+    <div id="alunos-container">
+        
+    </div>
+</div>
+
+

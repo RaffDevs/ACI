@@ -1,0 +1,144 @@
+﻿@model DashboardViewModel
+
+<div class="flex flex-col w-full p-8 gap-y-16">
+<div class="shadow-lg rounded-sm">
+        <h1 class="text-2xl font-bold px-8">Alunos</h1>
+        <div class="my-4"></div>
+        <div class="">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nome</th>
+                        <th>Sobrenome</th>
+                        <th>Email</th>
+                        <th>Nascimento</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var aluno in Model.Alunos)
+                    {
+                        <form id="edit-aluno" method="post" asp-controller="Home" asp-action="EditAluno" asp-route-id="@aluno.Id">
+                            <tr x-data="{ editing: false }">
+                                <th>@aluno.Id</th>
+                                <td>
+                                    <input type="text" name="nome" value="@aluno.Nome" :disabled="!editing" class="form-input" />
+                                </td>
+                                <td>
+                                    <input type="text" name="sobrenome" value="@aluno.Sobrenome" :disabled="!editing" class="form-input" />
+                                </td>
+                                <td>
+                                    <input type="email" name="email" value="@aluno.Email" :disabled="!editing" class="form-input" />
+                                </td>
+                                <td>
+                                    <input type="date" name="dataNascimento" value="@aluno.DataNascimento.ToString("yyyy-MM-dd")" :disabled="!editing" class="form-input" />
+                                </td>
+                                <td>
+                                    <template x-if="editing">
+                                        <button type="submit" x-show="editing" @@click="document.getElementById('edit-aluno').submit()" class="btn btn-sm btn-primary">
+                                            <span>Salvar</span>
+                                        </button>
+                                    </template>
+                                    <template x-if="!editing">
+                                        <button type="button" x-show="!editing" @@click="editing = true" class="btn btn-sm btn-primary">
+                                            <span>Editar</span>
+                                        </button>
+                                    </template>
+                                    <button
+                                    hx-post=@Url.Action("DeleteAluno", "Home", new { id = aluno.Id })
+                                    hx-confirm="Tem certeza que deseja deletar esse aluno?"
+                                    hx-swap="none"
+                                    hx-on:htmx:after-request="window.location.reload();"
+                                    class="btn btn-sm btn-error">Deletar</button>
+                                </td>
+                            </tr>
+                        </form>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="shadow-lg rounded-sm">
+        <h1 class="text-2xl font-bold px-8">Matrículas</h1>
+        <div class="my-4"></div>
+        <div class="">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Aluno</th>
+                        <th>Curso</th>
+                        <th>Data</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var matricula in Model.Matriculas)
+                    {
+                        <tr>
+                            <th>@matricula.Id</th>
+                            <td>@matricula.Aluno.Nome @matricula.Aluno.Sobrenome</td>
+                            <td>@matricula.Curso.Nome</td>
+                            <td>@matricula.CreatedAt.ToString("dd/MM/yyyy")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div class="shadow-lg rounded-sm">
+        <h1 class="text-2xl font-bold px-8">Cursos</h1>
+        <div class="my-4"></div>
+        <div class="">
+           <div class="flex flex-row justify-end px-4">
+                <form method="post" asp-action="CreateCurso" asp-controller="Home" class="mb-4 flex gap-x-2">
+                    <input type="text" name="curso" placeholder="Nome do curso" class="form-input" />
+                    <button type="submit" class="btn btn-primary">Adicionar Curso</button>
+                </form>
+           </div> 
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Curso</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var curso in Model.Cursos)
+                    {
+                        <form id="edit-curso" asp-action="EditCurso" asp-controller="Home" asp-route-id="@curso.Id">
+                            <tr x-data="{ editing: false }">
+                                <th>@curso.Id</th>
+                                <td>
+                                    <input type="text" name="curso" value="@curso.Nome" :disabled="!editing" class="form-input" />
+                                </td>
+                                <td>
+                                    <template x-if="editing">
+                                        <button type="submit" x-show="editing" @@click="document.getElementById('edit-curso').submit()" class="btn btn-sm btn-primary">
+                                            <span>Salvar</span>
+                                        </button>
+                                    </template>
+                                    <template x-if="!editing">
+                                        <button type="button" x-show="!editing" @@click="editing = true" class="btn btn-sm btn-primary">
+                                            <span>Editar</span>
+                                        </button>
+                                    </template>
+                                    <button
+                                    hx-post=@Url.Action("DeleteCurso", "Home", new { id = curso.Id })
+                                    hx-confirm="Tem certeza que deseja deletar esse curso?"
+                                    hx-swap="none"
+                                    hx-on:htmx:after-request="window.location.reload();"
+                                    class="btn btn-sm btn-error">Deletar</button>
+                                </td>
+                            </tr>
+                        </form>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+</div>

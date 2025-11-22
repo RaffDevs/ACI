@@ -1,0 +1,34 @@
+﻿@model Aluno
+
+@if(Model.Matriculas.Count > 0) {
+    <div class="card shadow-lg w-1/3 mx-auto p-8">
+        <h2 class="text-2xl font-semibold mb-4">Dados Pessoais</h2>
+
+        <ul class="list-disc list-inside">
+            <li>@Model.Nome</li>
+            <li>@Model.Sobrenome</li>
+            <li>@Model.Email</li>
+            <li>@Model.DataNascimento</li>
+        </ul>
+    </div>
+    <div class="card shadow-lg w-1/3 mx-auto p-8">
+        <h2 class="text-2xl font-semibold mb-4">Minhas Matrículas</h2>
+        <ul class="list-disc list-inside">
+            @foreach(var matricula in Model.Matriculas) {
+                <li>@matricula.Curso.Nome - feita em: @matricula.CreatedAt.ToString("dd/MM/yyyy")</li>
+            }
+        </ul>
+    </div>
+  <div class="mt-4">
+        <a class="btn btn-primary" href="@Url.Action("Matricula", "Home")">Nova Matrícula</a>
+  </div>  
+}
+else
+{
+    
+    <div class="rounded-2xl shadow-lg w-1/3 mx-auto py-8 flex flex-col items-center gap-y-8 mt-16">
+        <h1 class="text-2xl font-semibold">Nenhuma Matricula encontrada!</h1>
+        <p >Clique no botão abaixo para matricular!</p>
+        <a class="btn btn-primary" href="@Url.Action("Matricula", "Home")">Fazer Matrícula</a>
+    </div>
+}
