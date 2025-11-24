@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApplicationDatabaseContext>(options =>
 {
     var connectionString = builder.Configuration["Database:ConnectionString"];
+    
 
     if(builder.Environment.IsDevelopment())
     {
@@ -79,6 +80,8 @@ app.MapControllerRoute(
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<ApplicationDatabaseContext>();
+    context.Database.Migrate();
     await Seeder.InitializeAsync(services);
 }
 
