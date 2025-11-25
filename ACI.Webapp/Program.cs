@@ -11,17 +11,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddDbContext<ApplicationDatabaseContext>(options =>
 {
-    var connectionString = builder.Configuration["Database:ConnectionString"];
-    
+    var connectionString = builder.Configuration["Database:ConnectionString"]; 
 
-    if(builder.Environment.IsDevelopment())
-    {
-        options.UseSqlite(connectionString);
-    }
-    else
-    {
-        options.UseNpgsql(connectionString);
-    }
+    options.UseNpgsql(connectionString);
 });
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>

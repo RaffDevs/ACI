@@ -17,6 +17,7 @@
       <Folder Include="Application\Models\ViewModels\" />
       <Folder Include="Infrastructure\Configuration\" />
       <Folder Include="Infrastructure\Repositories\" />
+      <Folder Include="Migrations/" />
       <Folder Include="Presentation\" />
     </ItemGroup>
 
